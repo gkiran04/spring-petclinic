@@ -29,6 +29,20 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
+        env:
+        - name: MYSQL_URL
+          value: "jdbc:mysql://db-service:3306/petclinic"
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: db-user
+        - name: MYSQL_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: db-password       
         ports:
         - containerPort: 8080
         imagePullPolicy: Always
+

@@ -9,7 +9,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    name: petclinic
+    app: petclinic
   ports:
   - name: app
     protocol: "TCP"

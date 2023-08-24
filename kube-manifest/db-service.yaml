@@ -7,11 +7,11 @@ metadata:
     environment: dev
   namespace: petclinic
 spec:
-  type: ClusterIP
   selector:
     app: petclinic-db
   ports:
   - name: app
     protocol: "TCP"
     port: 3306
-    targetPort: 3306   
+    targetPort: 3306
+  clusterIP: None     

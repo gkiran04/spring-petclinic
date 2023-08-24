@@ -23,10 +23,6 @@ spec:
       containers:
       - name: petclinic
         image: gkiran04/petclinic:39
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         env:
         - name: MYSQL_URL
           value: "jdbc:mysql://db-service:3306/petclinic"

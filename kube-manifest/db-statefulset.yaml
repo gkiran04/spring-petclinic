@@ -60,4 +60,4 @@ spec:
       resources:
         requests:
           storage: 1Gi 
-      storageClassName: petclinic-sc         
+      storageClassName: "petclinic-sc"         

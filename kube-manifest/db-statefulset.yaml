@@ -60,5 +60,4 @@ spec:
       resources:
         requests:
           storage: 1Gi 
-      volumeName: db-pv
       storageClassName: petclinic-sc         

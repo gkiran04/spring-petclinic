@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: StorageClass
+metadata:
+  name: petclinic-sc
+  labels:
+    app: petclinic
+    environment: dev
+  namespace: petclinic
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+mountOptions:
+  - debug
+volumeBindingMode: Immediate  

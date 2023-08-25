@@ -18,9 +18,11 @@ spec:
       labels:
         app: petclinic-db
     spec:
+      imagePullSecrets:
+      - name: ecr-secret
       containers:
       - name: mysql-db
-        image: mysql:8.0
+        image: 001285825849.dkr.ecr.us-east-1.amazonaws.com/mysql:8.0
         imagePullPolicy: Always
         env:
         - name: MYSQL_USER

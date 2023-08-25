@@ -20,9 +20,11 @@ spec:
       labels:
         app: petclinic
     spec:
+      imagePullSecrets:
+      - name: ecr-secret
       containers:
       - name: petclinic
-        image: gkiran04/petclinic:39
+        image: 001285825849.dkr.ecr.us-east-1.amazonaws.com/petclinic:1
         env:
         - name: MYSQL_URL
           value: "jdbc:mysql://db-service:3306/petclinic"

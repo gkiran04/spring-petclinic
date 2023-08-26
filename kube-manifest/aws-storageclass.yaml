@@ -6,11 +6,10 @@ metadata:
     app: petclinic
     environment: dev
   namespace: petclinic
-provisioner: kubernetes.io/aws-ebs
+provisioner: ebs.csi.aws.com
+volumeBindingMode: WaitForFirstConsumer
 parameters:
   type: gp2
+  csi.storage.k8s.io/fstype: xfs
 reclaimPolicy: Retain
-allowVolumeExpansion: true
-mountOptions:
-  - debug
-volumeBindingMode: Immediate  
+

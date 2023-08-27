@@ -21,7 +21,7 @@ module "eks" {
   cluster_name    = "my-cluster"
   cluster_version = "1.27"
 
-  subnets = module.myapp-vpc.private_subnets
+  subnet_ids = module.myapp-vpc.private_subnets
   vpc_id = module.myapp-vpc.vpc-id
 
   tags = {
@@ -29,13 +29,17 @@ module "eks" {
     application = "myapp"
   }
 
-  worker_groups = [
-    {
-        instance_type = "t3.medium"
-        name = "worker-group-1"
-        asg_desired_capacity = 3
+  eks_managed_node_groups = {
+    blue = {}
+    green = {
+      min_size     = 3
+      max_size     = 5
+      desired_size = 3
+
+      instance_types = ["t3.medium"]
+      capacity_type  = "SPOT"
     }
-  ]
+  }
 
  
 }

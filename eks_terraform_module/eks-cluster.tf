@@ -22,7 +22,7 @@ module "eks" {
   cluster_version = "1.27"
 
   subnet_ids = module.myapp-vpc.private_subnets
-  vpc_id = module.myapp-vpc.vpc-id
+  vpc_id = module.myapp-vpc.vpc_id
 
   tags = {
     environment = "dev"

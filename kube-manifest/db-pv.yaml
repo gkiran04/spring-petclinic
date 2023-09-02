@@ -7,7 +7,7 @@ spec:
   accessModes:
   - ReadWriteOnce
   capacity:
-    storage: 2Gi
+    storage: 4Gi
   persistentVolumeReclaimPolicy: Recycle
   volumeMode: Filesystem
   storageClassName: standard  

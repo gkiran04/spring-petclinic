@@ -7,7 +7,7 @@ metadata:
     environment: dev
   namespace: petclinic
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: petclinic-db

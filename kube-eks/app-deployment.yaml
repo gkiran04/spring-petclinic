@@ -13,6 +13,9 @@ spec:
       app: petclinic
   strategy:
     type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 50%
     
   template:
     metadata:

@@ -45,14 +45,4 @@ spec:
         - containerPort: 8080
           protocol: "TCP"
         imagePullPolicy: Always
-      dnsPolicy: None
-      dnsConfig:
-        nameservers:
-        - 10.96.0.10
-        searches:
-        - petclinic.svc.cluster.local
-        - svc.cluster.local
-        - cluster.local
-        - asia-south1-c.c.practical-proxy-389909.internal 
-        - c.practical-proxy-389909.internal
-        - google.internal
+      

@@ -3,11 +3,7 @@ kind: ConfigMap
 metadata:
   name: fluent-bit-config
   namespace: logging
-  labels:
-    k8s-app: f-bit-pod
 data:
-  # Configuration files: server, input, filters and output
-  # ======================================================
   fluent-bit.conf: |
 
     [SERVICE]
@@ -15,31 +11,23 @@ data:
         Log_Level     info
         Parsers_File  parsers.conf
         Daemon        off
-    
+        
     @INCLUDE all_container_input.conf
     @INCLUDE output-fleuntd-forward.conf
-  input-kubernetes.conf: |
+
+  all_container_input.conf: |
     [INPUT]
         Name              tail
-        Tag               kube.*
-        Path              /var/log/containers/*.log
+        Tag               <container_name>-<namespace_name>
+        Tag_Regex         (?<pod_name>[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*)_(?<namespace_name>[^_]+)_(?<container_name>.+)-
         Parser            docker
+        Path              /var/log/containers/*
         DB                /var/log/flb_kube.db
         Mem_Buf_Limit     5MB
         Skip_Long_Lines   On
-        Refresh_Interval  10
-  filter-kubernetes.conf: |
-    [FILTER]
-        Name                kubernetes
-        Match               kube.*
-        Kube_URL            https://kubernetes.default.svc:443
-        Kube_CA_File        /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-        Kube_Token_File     /var/run/secrets/kubernetes.io/serviceaccount/token
-        Kube_Tag_Prefix     kube.var.log.containers.*
-        Merge_Log           On
-        Merge_Log_Key       log_processed
-        K8S-Logging.Parser  On
-        K8S-Logging.Exclude Off
+        Refresh_Interval  5
+        Docker_Mode       On
+
   output-fleuntd-forward.conf: |
     [OUTPUT]
         Name          forward
@@ -47,6 +35,7 @@ data:
         Host          ${FLUENTD_HOST}
         Port          ${FLUENTD_PORT}
         Retry_Limit   False
+
   parsers.conf: |
     [PARSER]
         Name        json

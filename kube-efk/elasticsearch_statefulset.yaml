@@ -4,7 +4,7 @@ metadata:
   name: es-cluster
   namespace: logging
 spec:
-  serviceName: elasticsearch
+  serviceName: elasticsearch-svc
   replicas: 1
   selector:
     matchLabels:
@@ -33,6 +33,8 @@ spec:
         - name: data
           mountPath: /usr/share/elasticsearch/data
         env:
+          - name: network.host
+            value: elasticsearch-svc
           - name: cluster.name
             value: k8s-logs
           - name: node.name

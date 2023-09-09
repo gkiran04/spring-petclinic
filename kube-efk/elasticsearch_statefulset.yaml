@@ -36,7 +36,7 @@ spec:
           - name: network.host
             value: elasticsearch-svc
           - name: cluster.name
-            value: k8s-logs
+            value: elasticsearch
           - name: node.name
             valueFrom:
               fieldRef:

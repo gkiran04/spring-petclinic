@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: elasticsearch
-        image: elasticsearch:7.17.13
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
         resources:
             limits:
               cpu: 1000m
@@ -33,10 +33,8 @@ spec:
         - name: data
           mountPath: /usr/share/elasticsearch/data
         env:
-          - name: network.host
-            value: elasticsearch-svc
           - name: cluster.name
-            value: elasticsearch
+            value: k8s-logs
           - name: node.name
             valueFrom:
               fieldRef:
@@ -45,8 +43,19 @@ spec:
             value: "es-cluster-0.elasticsearch,es-cluster-1.elasticsearch,es-cluster-2.elasticsearch"
           - name: cluster.initial_master_nodes
             value: "es-cluster-0,es-cluster-1,es-cluster-2"
+          - name: network.host
+            value: "0.0.0.0"
+          - name: xpack.security.enabled
+            value: "true"
+          - name: xpack.monitoring.collection.enabled
+            value: "true"   
           - name: ES_JAVA_OPTS
-            value: "-Xms512m -Xmx512m"
+            value: "-Xms512m -Xmx512m"   
+          - name: ELASTIC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: kibana-password
+                key: password   
       initContainers:
       - name: fix-permissions
         image: busybox

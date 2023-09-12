@@ -31,9 +31,16 @@ spec:
     spec:
       containers:
       - name: kibana
-        image: kibana:7.17.13
+        image: docker.elastic.co/kibana/kibana:7.2.0
         env:
           - name: ELASTICSEARCH_URL
             value: http://elasticsearch-svc:9200
+          - name: ELASTICSEARCH_USERNAME
+            value: elastic
+          - name: ELASTICSEARCH_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: kibana-password
+                key: password
         ports:
         - containerPort: 5601

@@ -4,7 +4,7 @@ metadata:
   name: es-cluster
   namespace: logging
 spec:
-  serviceName: elasticsearch-svc
+  serviceName: elasticsearch
   replicas: 1
   selector:
     matchLabels:

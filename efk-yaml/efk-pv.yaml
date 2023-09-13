@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: efk-pv
+  namespace: logging
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 4Gi
+  persistentVolumeReclaimPolicy: Recycle
+  volumeMode: Filesystem
+  storageClassName: efk-sc
+  hostPath:
+    path: "/var/lib/elasticsearch"
